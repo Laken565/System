@@ -1,0 +1,101 @@
+﻿@model CRUDDemo.Models.Customer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gender)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<p>
+
+    @Html.ActionLink(
+    linkText: "New Order",
+    actionName: "Create",
+    controllerName: "Orders",
+    routeValues: new
+        {
+        id = Model.id
+    },
+    htmlAttributes: null
+)
+
+</p>
+
+<table id="orderTable" class="table-bordered">
+    <tr>
+        <th>
+            Order Number
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Date
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var order in Model.Orders)
+    {
+        <tr>
+            <td>@order.OrderNumber</td>
+            <td>@order.Description</td>
+            <td>@order.Date</td>
+            <td>
+                @Html.ActionLink(
+                linkText: "Order Details",
+                actionName: "Details",
+                controllerName: "Orders",
+                routeValues: new
+                {
+                id = order.Id
+                },
+                htmlAttributes: null
+                )
+
+            </td>
+        </tr>
+    }
+</table>

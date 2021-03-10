@@ -1,0 +1,107 @@
+﻿@model CRUDDemo.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<p>
+
+    @Html.ActionLink(
+    linkText: "New OrderItems",
+    actionName: "Create",
+    controllerName: "OrderItems",
+    routeValues: new
+        {
+        id = Model.Id
+    },
+    htmlAttributes: null
+)
+
+</p>
+
+
+<table id="orderItemTable" class="table-bordered">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Total
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var orderItem in Model.OrderItems)
+    {
+        <tr>
+            <td>@orderItem.Id</td>
+            <td>@orderItem.Name</td>
+            <td>@orderItem.Quantity</td>
+            <td>@orderItem.Product.Price</td>
+            <td>@(int.Parse(orderItem.Product.Price)*@orderItem.Quantity)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = orderItem.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = orderItem.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = orderItem.Id })
+            </td>
+
+        </tr>
+
+
+    }
+</table>
